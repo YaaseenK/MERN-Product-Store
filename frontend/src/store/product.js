@@ -18,5 +18,21 @@ export const useProductStore = create((set) => ({
 		set((state) => ({ products: [...state.products, data.data] }));
 		return { success: true, message: "Product created successfully" };
 	},
+	fetchProducts: async () => {
+		const res = await  fetch('api/products');
+		const data = await res.json();
+		set({ products: data.data})
+	},
+	deleteProduct: async (pid) => {
+		const res = await fetch(`api/products/${pid}`, {
+			method: "DELETE",
+		});
+		const data = await res.json();
+		if(!data.success) return {success: false, message: data.message};
+		// Updates UI right away without needing refresh
+		set((state) => ({ products: state.products.filter((product) => product._id !== pid) }));
+		return { success: true, message: data.message };
+	}
+
 }));
 
