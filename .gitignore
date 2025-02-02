@@ -1,0 +1,25 @@
+# Node.js
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Build files
+dist/
+build/
+
+# Environment variables
+.env
+
+# macOS
+.DS_Store
+
+# Visual Studio Code
+.vscode/
+
+# Dependencies installed via npm
+package-lock.json
+
+# Heroku
+*.env.heroku
