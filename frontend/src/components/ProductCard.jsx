@@ -20,7 +20,6 @@ import {
     useToast,
     VStack,
 } from "@chakra-ui/react";
-import { MdDelete } from "react-icons/md";
 import { useProductStore } from '../store/product';
 import { useState } from 'react';
 
@@ -101,10 +100,12 @@ const ProductCard = ({ product }) => {
                 <HStack spacing={2}>
                     <IconButton
                         icon={<EditIcon />}
-                        onClick={onOpen} />
+                        onClick={onOpen} 
+                        colorScheme="blue"/>
                     <IconButton
-                        icon={<MdDelete />}
-                        onClick={() => handleDeleteProduct(product._id)} />
+                        icon={<DeleteIcon />}
+                        onClick={() => handleDeleteProduct(product._id)} 
+                        colorScheme="red"/>
                 </HStack>
             </Box>
 
