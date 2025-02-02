@@ -41,7 +41,7 @@ export const updateProduct = async (req, res) => {
                 runValidators: true // Ensure validators are run before update
             }
         );
-        res.status(200).json({success: true, updates});
+        res.status(200).json({success: true, data: updates});
 
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
