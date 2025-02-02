@@ -6,21 +6,30 @@ import Product  from "./models/product.model.js"
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
-app.post('/products' , (req, res) => {
-    try {
-        const createProduct = async (req, res) =>{
-            const product = await Product.create(req.body)
-            res.status(200).json(product);
+// Middleware to parse incoming request bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.json()); // Parse JSON bodies
+
+app.post('/api/products' , async (req, res) => {
+    const product = req.body;
+    
+        if(!product.name ||!product.price || !product.image){
+            res.status(400).json({ success:false, message: "Please Provide all fields"});
         }
-    } catch (err) {
-        return res.status(400).json({ message: `Error:  ${err.message}` });
-    }
+        const newProduct = new Product(product)
+        try {
+            await newProduct.save()
+            res.status(201).json({ success: true , data: newProduct});
+        } catch (error) {
+            console.log(`Error in Create Product:`, error.message);
+            res.status(500).json({success: false, message: "Server Error"})
+        }
 });
 
 
 app.listen(PORT, () => {
     connectDB()
-    console.log("Server started at http://localhost:3000")
+    console.log(`Server started at http://localhost:${PORT}`)
 })
