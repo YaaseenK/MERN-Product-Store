@@ -1,15 +1,19 @@
-import { Box, Container, Heading, Input, useColorModeValue, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, Heading, Input, useColorModeValue, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
 const CreatePage = () => {
-    const [newProductm, setNewProduct] = useState({
+    const [newProduct, setNewProduct] = useState({
         name: '',
         price: '',
         image: '',
     });
+    
+    const handleAddProduct = () =>{
+        console.log(newProduct)
+    }
 
     return (
-        <Container manW={"container.sm"}>
+        <Container maxW={"container.sm"}>
             <VStack
                 spacing={8}
             >
@@ -18,13 +22,32 @@ const CreatePage = () => {
                 </Heading>
 
                 <Box
-                w={"full"} bg={useColorModeValue("white", "grey.800")}
-                p={6} rounded={"lg"} shadow={"md"}
+                    w={"full"} bg={useColorModeValue("white", "grey.800")}
+                    p={6} rounded={"lg"} shadow={"md"}
                 >
                     <VStack spacing={4}>
                         <Input
                             placeholder="Product Name"
+                            name="name"
+                            value={newProduct.name}
+                            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
                         />
+                        <Input
+                            placeholder="Price"
+                            name="price"
+                            type="Number"
+                            value={newProduct.price}
+                            onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+                        />
+                        <Input
+                            placeholder="Image URL"
+                            name="image"
+                            value={newProduct.image}
+                            onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
+                        />
+                        <Button colorScheme='blue' onClick={handleAddProduct}  w='full'>
+                            Add Product
+                        </Button>
                     </VStack>
                 </Box>
             </VStack>
